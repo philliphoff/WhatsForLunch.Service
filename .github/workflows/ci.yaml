@@ -15,4 +15,4 @@ jobs:
       - name: Build Service
         run: dotnet build --configuration release
       - name: Build Service Container
-        run: dotnet publish ./src/Service/Service.csproj --no-restore --no-build --os linux --arch x64 /t:PublishContainer -c Release /p:ContainerImageTag=${{ github.run_id }}
+        run: dotnet publish ./src/Service/Service.csproj --os linux --arch x64 /t:PublishContainer -c Release /p:ContainerImageTag=${{ github.run_id }}
