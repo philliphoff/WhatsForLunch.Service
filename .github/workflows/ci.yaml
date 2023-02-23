@@ -12,5 +12,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
-      - name: Build
+      - name: Build Service
         run: dotnet build --configuration release
+      - name: Build Service Container
+        run: dotnet publish ./src/Service/Service.csproj --no-restore --no-build --os linux --arch x64 /t:PublishContainer -c Release /p:ContainerImageTag=${{ github.run_id }}
