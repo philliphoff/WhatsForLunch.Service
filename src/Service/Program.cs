@@ -16,7 +16,18 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseWebAssemblyDebugging();
 }
+
+app.UseRouting();
+app.UseStaticFiles();
+app.UseBlazorFrameworkFiles();
+app.UseEndpoints(
+    endpoints =>
+    {
+        endpoints.MapFallbackToFile("index.html");
+    });
 
 app.MapGet(
         "api/v1/todayslunch",
