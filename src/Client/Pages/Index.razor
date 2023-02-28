@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using WhatsForLunch;
+@inject HttpClient Http
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +9,22 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@if (calendar == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p><em>Got results!</em></p>
+}
+
+@code
+{
+    private LunchCalendar? calendar;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.calendar = await Http.GetFromJsonAsync<LunchCalendar>("api/v1/todayslunch");
+    }
+}

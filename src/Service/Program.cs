@@ -1,5 +1,5 @@
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using WhatsForLunch;
 using WhatsForLunch.Service.Titan;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -153,25 +153,3 @@ async Task<IReadOnlyDictionary<DateOnly, Day>> GetLunchMenuDaysAsync(TitanMenuCl
         .Where(day => day.Date != null)
         .ToDictionary(day => DateOnly.ParseExact(day.Date!, "M/d/yyyy"));
 }
-
-sealed record LunchMenu(
-    [property: JsonPropertyName("items")]
-    string[] Items
-);
-
-sealed record LunchDay(
-    [property: JsonPropertyName("dateString")]
-    string DateString,
-
-    [property: JsonPropertyName("dayOfWeek")]
-    string DayOfWeek,
-
-    [property: JsonPropertyName("menu")]
-    LunchMenu? Menu);
-
-sealed record LunchCalendar(
-    [property: JsonPropertyName("today")]
-    LunchDay Today,
-
-    [property: JsonPropertyName("next")]
-    LunchDay Next);

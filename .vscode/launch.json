@@ -21,7 +21,7 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://+:5050",
+                "ASPNETCORE_URLS": "http://localhost:5050",
                 "TITAN_MENU_ENDPOINT": "https://family.titank12.com/api/",
                 "TITAN_MENU_IDENTIFIER": "LPX5UV"
             },
