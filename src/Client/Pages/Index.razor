@@ -16,7 +16,10 @@ Welcome to your new app.
 }
 else
 {
-    <p><em>Got results!</em></p>
+    <div>
+        <LunchDayView Day=this.calendar.Today />
+        <LunchDayView Day=this.calendar.Next />
+    </div>
 }
 
 @code
