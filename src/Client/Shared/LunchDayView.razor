@@ -1,6 +1,10 @@
 @using WhatsForLunch
 
-<div>
+<div class="view">
+    <div class="header">
+        <div class="dayOfWeek">@this.Day?.DayOfWeek</div>
+        <div class="date">@this.Day?.DateString</div>
+    </div>
     @if (this.Day?.Menu == null)
     {
         <div>No menu.</div>
