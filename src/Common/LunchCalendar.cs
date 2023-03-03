@@ -11,6 +11,15 @@ public sealed record LunchDay(
     [property: JsonPropertyName("dateString")]
     string DateString,
 
+    [property: JsonPropertyName("month")]
+    string Month,
+
+    [property: JsonPropertyName("month")]
+    string ShortMonth,
+
+    [property: JsonPropertyName("dayOfMonth")]
+    int DayOfMonth,
+
     [property: JsonPropertyName("dayOfWeek")]
     string DayOfWeek,
 

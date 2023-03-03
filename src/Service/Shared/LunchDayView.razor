@@ -1,9 +1,9 @@
 @using WhatsForLunch
 
-<div class="view">
-    <div class="header">
+<div class="view @(this.IsToday ? "today" : "")">
+    <div class="header @(this.IsToday ? "todayHeader" : "")">
         <div class="dayOfWeek">@this.Day?.DayOfWeek</div>
-        <div class="date">@this.Day?.DateString</div>
+        <div class="date">@this.Day?.DayOfMonth @this.Day?.Month</div>
     </div>
     @if (this.Day?.Menu == null)
     {
@@ -11,7 +11,7 @@
     }
     else
     {
-        <div>
+        <div class="items">
             @foreach (var item in this.Day.Menu.Items)
             {
                 <div>@item</div>
@@ -24,4 +24,7 @@
 {
     [Parameter]
     public LunchDay? Day { get; set; }
+
+    [Parameter]
+    public bool IsToday { get; set; }
 }

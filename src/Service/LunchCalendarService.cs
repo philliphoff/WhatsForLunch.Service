@@ -78,9 +78,12 @@ public sealed class LunchCalendarService : ILunchCalendarService
     private static LunchDay ToLunchDay(DateOnly date, IReadOnlyDictionary<DateOnly, Day> lunchMenuDays)
     {
         return new LunchDay(
-            date.ToString(),
-            date.DayOfWeek.ToString(), // TODO: Find culture-appropriate conversion.
-            lunchMenuDays.TryGetValue(date, out var day)
+            DateString: date.ToString(),
+            Month: date.ToString("MMMM"),
+            ShortMonth: date.ToString("MMM"),
+            DayOfMonth: date.Day,
+            DayOfWeek: date.DayOfWeek.ToString(), // TODO: Find culture-appropriate conversion.
+            Menu: lunchMenuDays.TryGetValue(date, out var day)
                 ? ToLunchMenu(day)
                 : null);
     }
