@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using WhatsForLunch;
-@inject HttpClient Http
+@inject ILunchCalendarService LunchCalendarService
 
 <PageTitle>What's for Lunch?</PageTitle>
 
@@ -24,6 +24,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        this.calendar = await Http.GetFromJsonAsync<LunchCalendar>("api/v1/todayslunch");
+        this.calendar = await LunchCalendarService.GetTodaysLunch();
     }
 }
