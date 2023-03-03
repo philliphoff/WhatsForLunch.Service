@@ -1,0 +1,29 @@
+﻿@page "/"
+@using WhatsForLunch;
+@inject ILunchCalendarService LunchCalendarService
+
+<PageTitle>What's for Lunch?</PageTitle>
+
+<h1>What's for Lunch?</h1>
+
+@if (calendar == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="calendar">
+        <LunchDayView Day=this.calendar.Today />
+        <LunchDayView Day=this.calendar.Next />
+    </div>
+}
+
+@code
+{
+    private LunchCalendar? calendar;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.calendar = await LunchCalendarService.GetTodaysLunch();
+    }
+}
