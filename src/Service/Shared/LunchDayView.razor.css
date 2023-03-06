@@ -2,6 +2,10 @@
     border: 5px;
     border-color: gray;
     border-style: solid;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100%;
 }
 
 .today {
@@ -13,8 +17,11 @@
     border-color: gray;
     border-style: solid;
     border-width: 0 0 5px 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     padding: 5px;
 }
 
@@ -29,12 +36,20 @@
 }
 
 .dayOfWeek {
-    align-self: flex-start;
     font-weight: bold;
     font-size: larger;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .date {
-    align-self: flex-end;
     font-size: large;
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+}
+
+.noMenu {
+    align-self: center;
+    justify-self: center;
 }

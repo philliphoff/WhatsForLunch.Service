@@ -13,8 +13,12 @@
 else
 {
     <div class="calendar">
-        <LunchDayView Day=this.calendar.Today IsToday=true />
-        <LunchDayView Day=this.calendar.Next IsToday=false />
+        <div class="today">
+            <LunchDayView Day=this.calendar.Today IsToday=true />
+        </div>
+        <div class="next">
+            <LunchDayView Day=this.calendar.Next IsToday=false />
+        </div>
     </div>
 }
 

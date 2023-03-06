@@ -1,5 +1,15 @@
 .calendar {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 10% 35% 10% 35% 10%;
+    grid-template-rows: 100%;
+}
+
+.today {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.next {
+    grid-column: 4;
+    grid-row: 1;
 }
