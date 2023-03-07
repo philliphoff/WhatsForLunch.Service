@@ -25,3 +25,15 @@ jobs:
         run: docker tag whats-for-lunch-service:${{ github.run_id }} philliphoff/whats-for-lunch-service:${{ github.run_id }}
       - name: Push container
         run: docker push philliphoff/whats-for-lunch-service:${{ github.run_id }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy to Azure
+        run: ./infra/deploy.sh ${{ secrets.AZURE_SUBSCRIPTION_ID }} ${{ vars.AZURE_LOCATION }} ${{ vars.AZURE_CORE_NAME }} ${{ github.run_id }}
