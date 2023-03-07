@@ -36,4 +36,5 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy to Azure
-        run: ./infra/deploy.sh ${{ secrets.AZURE_SUBSCRIPTION_ID }} ${{ vars.AZURE_LOCATION }} ${{ vars.AZURE_CORE_NAME }} ${{ github.run_id }}
+        run: |
+          ./infra/deploy.sh ${{ secrets.AZURE_SUBSCRIPTION_ID }} ${{ vars.AZURE_LOCATION }} ${{ vars.AZURE_CORE_NAME }} ${{ github.run_id }}
