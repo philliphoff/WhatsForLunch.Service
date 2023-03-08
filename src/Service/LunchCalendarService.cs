@@ -11,10 +11,8 @@ public sealed class LunchCalendarService : ILunchCalendarService
         this.configuration = configuration;
     }
 
-    public async Task<LunchCalendar> GetTodaysLunch(DateOnly? today = null)
+    public async Task<LunchCalendar> GetTodaysLunch(DateOnly today)
     {
-            today ??= DateOnly.FromDateTime(DateTime.Today);
-
             string? endpoint = this.configuration["TITAN_MENU_ENDPOINT"];
 
             if (String.IsNullOrEmpty(endpoint))
@@ -43,7 +41,7 @@ public sealed class LunchCalendarService : ILunchCalendarService
                 throw new InvalidOperationException("Unable to determine the school building ID.");
             }
 
-            var calendarDates = GetCalendarDates(today.Value);
+            var calendarDates = GetCalendarDates(today);
             var weekStartDates = GetWeekStartDates(calendarDates.Today, calendarDates.Next);
 
             var lunchMenuDays = new Dictionary<DateOnly, Day>();
