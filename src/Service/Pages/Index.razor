@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using WhatsForLunch;
 @inject ILunchCalendarService LunchCalendarService
+@inject TimeZoneService TimeZoneService
 
 <PageTitle>What's for Lunch?</PageTitle>
 
@@ -28,6 +29,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        this.calendar = await LunchCalendarService.GetTodaysLunch();
+        var offset = await TimeZoneService.GetLocalDateTime();
+        var today = DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(offset).Date);
+
+        this.calendar = await LunchCalendarService.GetTodaysLunch(today);
     }
 }

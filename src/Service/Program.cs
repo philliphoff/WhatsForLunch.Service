@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<ILunchCalendarService, LunchCalendarService>();
+builder.Services.AddScoped<TimeZoneService>();
 
 builder.WebHost.UseStaticWebAssets();
 
@@ -32,9 +33,11 @@ app.MapFallbackToPage("/_Host");
 
 app.MapGet(
         "api/v1/todayslunch",
-        ([FromQuery] DateOnly? today, [FromServices] ILunchCalendarService lunchCalendarService) =>
+        ([FromQuery] DateOnly? today, [FromQuery] int? utcOffset, [FromServices] ILunchCalendarService lunchCalendarService) =>
         {
-            return lunchCalendarService.GetTodaysLunch(today);
+            today ??= DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromMinutes(utcOffset ?? 0)).Date);
+
+            return lunchCalendarService.GetTodaysLunch(today.Value);
         })
     .WithName("Today's Lunch")
     .WithOpenApi();
