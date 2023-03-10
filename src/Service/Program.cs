@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<ILunchMenuNormalizationService, StaticLunchMenuNormalizationService>();
 builder.Services.AddSingleton<ILunchCalendarService, LunchCalendarService>();
 builder.Services.AddScoped<TimeZoneService>();
 
