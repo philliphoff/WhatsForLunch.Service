@@ -5,10 +5,14 @@ namespace WhatsForLunch;
 public sealed class LunchCalendarService : ILunchCalendarService
 {
     private readonly IConfiguration configuration;
+    private readonly ILunchMenuNormalizationService normalizationService;
 
-    public LunchCalendarService(IConfiguration configuration)
+    public LunchCalendarService(
+        IConfiguration configuration,
+        ILunchMenuNormalizationService normalizationService)
     {
         this.configuration = configuration;
+        this.normalizationService = normalizationService;
     }
 
     public async Task<LunchCalendar> GetTodaysLunch(DateOnly today)
@@ -61,7 +65,7 @@ public sealed class LunchCalendarService : ILunchCalendarService
                 ToLunchDay(calendarDates.Next, lunchMenuDays));
     }
 
-    private static LunchMenu ToLunchMenu(Day day)
+    private LunchMenu ToLunchMenu(Day day)
     {
         return new LunchMenu(
             day
@@ -69,11 +73,12 @@ public sealed class LunchCalendarService : ILunchCalendarService
                 .SelectMany(category => category.Recipes)
                 .Select(recipe => recipe.RecipeName ?? String.Empty)
                 .Where(recipeName => !String.IsNullOrEmpty(recipeName))
+                .Select(item => this.normalizationService.NormalizeItem(item))
                 .ToArray()
         );
     }
 
-    private static LunchDay ToLunchDay(DateOnly date, IReadOnlyDictionary<DateOnly, Day> lunchMenuDays)
+    private LunchDay ToLunchDay(DateOnly date, IReadOnlyDictionary<DateOnly, Day> lunchMenuDays)
     {
         return new LunchDay(
             DateString: date.ToString(),
